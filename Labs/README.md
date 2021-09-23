@@ -1,5 +1,6 @@
 # 1st laboratory 
 [**Task**](https://github.com/tomas-fryza/Digital-electronics-2/tree/master/Labs/01-tools)
+
  [**My solution**](https://github.com/xrajmj00/Digital-electronics-2/blob/main/Labs/README.md)
 
 ```c

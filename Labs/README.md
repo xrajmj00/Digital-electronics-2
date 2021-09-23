@@ -1,6 +1,6 @@
 # 1st laboratory 
 
- (**Link**)[https://github.com/xrajmj00/Digital-electronics-2/blob/main/Labs/README.md]
+ [**Link**](https://github.com/xrajmj00/Digital-electronics-2/blob/main/Labs/README.md)
 
 ```c
 int main(void)

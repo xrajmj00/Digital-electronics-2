@@ -1,6 +1,7 @@
 # Lab 1: Jan Rajm
 
-   [**Link to my `Digital-electronics-2` GitHub repository:**](https://github.com/xrajmj00/Digital-electronics-2/blob/main/Labs/README.md) \n
+   [**Link to my `Digital-electronics-2` GitHub repository:**](https://github.com/xrajmj00/Digital-electronics-2/blob/main/Labs/README.md) 
+   
    [https://github.com/...](https://github.com/...)
 
 

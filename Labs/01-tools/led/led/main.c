@@ -20,7 +20,8 @@
  * directives. This is a common mistake.
  */
 #define LED_GREEN   PB5 // AVR pin where green LED is connected
-#define SHORT_DELAY 10 // Delay in milliseconds
+#define SHORT_DELAY 500 // Delay in milliseconds 
+#define LONG_DELAY  1500 //       --//--               
 #ifndef F_CPU           // Preprocessor directive allows for conditional
                         // compilation. The #ifndef means "if not defined".
 # define F_CPU 16000000 // CPU frequency in Hz required for delay
@@ -52,12 +53,59 @@ int main(void)
     // Infinite loop
     while (1)
     {
-        // Pause several milliseconds
-        _delay_ms(SHORT_DELAY);
-
+        PORTB = PORTB & ~(1<<LED_GREEN);
         // Invert LED in Data Register
         // PORTB = PORTB xor 0010 0000
-        PORTB = PORTB ^ (1<<LED_GREEN);
+        
+        // D
+        PORTB = PORTB | (1<<LED_GREEN); //
+        _delay_ms(LONG_DELAY);          // 111
+        PORTB = PORTB & ~(1<<LED_GREEN); //
+        _delay_ms(SHORT_DELAY);          // 0
+        PORTB = PORTB | (1<<LED_GREEN);//
+        _delay_ms(SHORT_DELAY);          // 1
+        PORTB = PORTB & ~(1<<LED_GREEN);//
+        _delay_ms(SHORT_DELAY);          // 0
+        PORTB = PORTB | (1<<LED_GREEN); //
+        _delay_ms(SHORT_DELAY);          // 1
+        
+        // Gap between lethers
+        PORTB = PORTB & ~(1<<LED_GREEN);//
+        _delay_ms(LONG_DELAY);          // 000
+        
+        //E
+        PORTB = PORTB | (1<<LED_GREEN); //
+        _delay_ms(SHORT_DELAY);          // 1
+        
+        // Gap between lethers
+        PORTB = PORTB & ~(1<<LED_GREEN); //
+        _delay_ms(LONG_DELAY);          // 000
+        
+        //2
+         PORTB = PORTB | (1<<LED_GREEN);//
+         _delay_ms(SHORT_DELAY);          // 1
+         PORTB = PORTB & ~(1<<LED_GREEN);//
+         _delay_ms(SHORT_DELAY);          // 0
+         PORTB = PORTB | (1<<LED_GREEN); //
+         _delay_ms(SHORT_DELAY);          // 1
+         PORTB = PORTB & ~(1<<LED_GREEN);//
+         _delay_ms(SHORT_DELAY);          // 0
+         PORTB = PORTB | (1<<LED_GREEN); //
+         _delay_ms(LONG_DELAY);          // 111
+         PORTB = PORTB & ~(1<<LED_GREEN);//
+         _delay_ms(SHORT_DELAY);          // 0
+         PORTB = PORTB | (1<<LED_GREEN); //
+         _delay_ms(LONG_DELAY);          // 111
+         PORTB = PORTB & ~(1<<LED_GREEN);//
+         _delay_ms(SHORT_DELAY);          // 0
+         PORTB = PORTB | (1<<LED_GREEN); //
+         _delay_ms(LONG_DELAY);          // 111
+         PORTB = PORTB & ~(1<<LED_GREEN);//
+         _delay_ms(SHORT_DELAY);          // 0
+      
+        // Gap between lethers
+        PORTB = PORTB & ~(1<<LED_GREEN); //
+        _delay_ms(LONG_DELAY);          // 000
     }
 
     // Will never reach this

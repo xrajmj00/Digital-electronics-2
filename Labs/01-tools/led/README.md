@@ -32,6 +32,8 @@
 ```c
 int main(void)
 {
+
+   
     // Set pin as output in Data Direction Register
     // DDRB = DDRB or 0010 0000
     DDRB = DDRB | (1<<LED_GREEN);

@@ -63,22 +63,23 @@ int main(void)
 1. Part of the C code listing with syntax highlighting, which toggles LEDs only if push button is pressed. Otherwise, the value of the LEDs does not change. Let the push button is connected to port D:
 
 ```c
-    // Configure Push button at port D and enable internal pull-up resistor
-    DDRC = DDRC |  (1 << LED_GREEN_BB); 
-    DDRB = DDRB |  (1 << LED_GREEN); 
-    DDRD = DDRD & ~(1 << BUTTON); 
-    
-    PORTC = PROTC & ~(1 << LED_RED);   // out 0
-    PORTB = PROTB |  (1 << LED_GREEN); // out 1
-    PORTD = PROTD |  (1 << BUTTON);    // pullup
+     // Configure Push button at port D and enable internal pull-up resistor
+    // Set pin as input in Data Direction Register...
+    DDRD = DDRD & ~(1<<BUTTON);
+    // ...and use pull-up in Data Register
+    PORTD = PORTD | (1<<BUTTON);
 
     // Infinite loop
     while (1)
     {
         // Pause several milliseconds
         _delay_ms(BLINK_DELAY);
-
-        // WRITE YOUR CODE HERE
+ 
+        if(bit_is_clear(PIND, 7))
+        {
+            PORTB = PORTB ^ (1<<LED_GREEN);
+            PORTC = PORTC ^ (1<<LED_GREEN_BB);
+        }
     }
 ```
 

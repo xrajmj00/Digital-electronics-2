@@ -26,6 +26,34 @@ Link to my `Digital-electronics-2` GitHub repository:
 | 1 | 0 | output | no | output low |
 | 1 | 1 | output | no | output high |
 
+| **Port** | **Pin** | **Input/output usage?** |
+| :-: | :-: | :-- |
+| A | x | Microcontroller ATmega328P does not contain port A |
+| B | 0 | Yes (Arduino pin D8) |
+|   | 1 | Yes (Arduino pin D9) |
+|   | 2 | Yes (Arduino pin D10) |
+|   | 3 | Yes (Arduino pin D11) |
+|   | 4 | Yes (Arduino pin D12) |
+|   | 5 | Yes (Arduino pin D13) |
+|   | 6 | No |
+|   | 7 | No |
+| C | 0 | Yes (Arduino pin A0/D14) |
+|   | 1 | Yes (Arduino pin A1/D15) |
+|   | 2 | Yes (Arduino pin A2/D16) |
+|   | 3 | Yes (Arduino pin A3/D17) |
+|   | 4 | Yes (Arduino pin A4/D18 |
+|   | 5 | Yes (Arduino pin A5/D19) |
+|   | 6 | Yes (Arduino pin RST) |
+|   | 7 | No |
+| D | 0 | Yes (Arduino pin RX D0) |
+|   | 1 | Yes (Arduino pin TX D1) |
+|   | 2 | Yes (Arduino pin D2) |
+|   | 3 | Yes (Arduino pin D3) |
+|   | 4 | Yes (Arduino pin D4) |
+|   | 5 | Yes (Arduino pin D5) |
+|   | 6 | Yes (Arduino pin D6) |
+|   | 7 | Yes (Arduino pin D7) |
+
 2. Part of the C code listing with syntax highlighting, which blinks alternately with a pair of LEDs; let one LED is connected to port B and the other to port C:
 
 ```c
@@ -88,4 +116,4 @@ int main(void)
 
 1. Scheme of Knight Rider application, i.e. connection of AVR device, five LEDs, resistors, one push button, and supply voltage. The image can be drawn on a computer or by hand. Always name all components and their values!
 
-   ![your figure]()
+   ![your figure](de2_2.png)

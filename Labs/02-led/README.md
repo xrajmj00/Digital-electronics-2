@@ -103,7 +103,7 @@ int main(void)
         // Pause several milliseconds
         _delay_ms(BLINK_DELAY);
  
-        if(bit_is_clear(PIND, 7))
+        if(bit_is_clear(PIND, 2))
         {
             PORTB = PORTB ^ (1<<LED_GREEN);
             PORTC = PORTC ^ (1<<LED_GREEN_BB);
@@ -116,4 +116,4 @@ int main(void)
 
 1. Scheme of Knight Rider application, i.e. connection of AVR device, five LEDs, resistors, one push button, and supply voltage. The image can be drawn on a computer or by hand. Always name all components and their values!
 
-   ![your figure](de2_2.png)
+   ![your figure](de2_2.jpg)

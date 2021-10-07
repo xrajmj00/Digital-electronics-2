@@ -1,8 +1,8 @@
 # Lab 3: Jan Rajm
 
-Link to your `Digital-electronics-2` GitHub repository:
+Link to my `Digital-electronics-2` GitHub repository:
 
-   [https://github.com/...](https://github.com/...)
+   [https://github.com/xrajmj00/Digital-electronics-2](https://github.com/xrajmj00/Digital-electronics-2)
 
 
 ### Data types in C

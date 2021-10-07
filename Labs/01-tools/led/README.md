@@ -1,3 +1,35 @@
+# Lab 1: Jan Rajm
+
+   [**Link to my `Digital-electronics-2` GitHub repository:**](https://github.com/xrajmj00/Digital-electronics-2/blob/main/Labs/README.md) 
+   
+   [https://github.com/...](https://github.com/...)
+
+
+### Blink example
+
+1. What is the meaning of the following binary operators in C?
+   * `|` or
+   * `&` and
+   * `^` xor
+   * `~` not 
+   * `<<` shift to left
+   * `>>` shift to right
+
+2. Complete truth table with operators: `|`, `&`, `^`, `~`
+
+| **b** | **a** |**b or a** | **b and a** | **b xor a** | **not b** |
+| :-: | :-: | :-: | :-: | :-: | :-: |
+| 0 | 0 | 0 | 0 | 0 | 1 |
+| 0 | 1 | 1 | 0 | 1 | 1 |
+| 1 | 0 | 1 | 0 | 1 | 0 |
+| 1 | 1 | 1 | 1 | 0 | 0 |
+
+
+### Morse code
+
+1. Listing of C code with syntax highlighting which repeats one "dot" and one "comma" on a LED:
+
+```c
 int main(void)
 {
     // Set pin as output in Data Direction Register
@@ -69,3 +101,9 @@ int main(void)
     // Will never reach this
     return 0;
 }
+```
+
+
+2. Scheme of Morse code application, i.e. connection of AVR device, LED, resistor, and supply voltage. The image can be drawn on a computer or by hand. Always name all components and their values!
+
+   ![your figure](de2_1.png)

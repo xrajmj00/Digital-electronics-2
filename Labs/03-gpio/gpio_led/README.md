@@ -46,4 +46,4 @@ Link to my `Digital-electronics-2` GitHub repository:
 
 
 ### Traffic light
-IMG_20211010_213438[1].jpg
+![your figure](IMG_20211010_213438[1].jpg)

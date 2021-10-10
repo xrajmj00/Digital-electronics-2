@@ -12,8 +12,8 @@ Link to my `Digital-electronics-2` GitHub repository:
 | **Data type** | **Number of bits** | **Range** | **Description** |
 | :-: | :-: | :-: | :-- | 
 | `uint8_t`  | 8 | 0, 1, ..., 255 | Unsigned 8-bit integer |
-| `int8_t`   | 8 | -168, ... 167 | Signed 8-bit integer |
-| `uint16_t` | 8 | 0, 1, ... 65536 | Unsigned 16-bit integer |
+| `int8_t`   | 8 | -128, ... 127 | Signed 8-bit integer |
+| `uint16_t` | 8 | 0, 1, ... 65535 | Unsigned 16-bit integer |
 | `int16_t`  | 16 | -32768, ... 32767 | Signed 16-bit integer |
 | `float`    | 16 | -3.4e+38, ..., 3.4e+38 | Single-precision floating-point |
 | `void`     | 0 | 0 | Void type |

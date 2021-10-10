@@ -34,9 +34,10 @@ Link to my `Digital-electronics-2` GitHub repository:
     // Infinite loop
     while (1)
     {
-        if GPIO_read(&DDRD, BUTTON) 
+        if (!GPIO_read(&DDRD, BUTTON)) 
           {
             GPIO_toggle(&PORTB, LED_GREEN);
+            GPIO_toggle(&PORTB, LED_GREEN_BB);
             // Pause several milliseconds
             _delay_ms(BLINK_DELAY);
           }

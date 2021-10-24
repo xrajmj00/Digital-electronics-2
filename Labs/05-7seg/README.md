@@ -42,19 +42,20 @@ ISR(TIMER1_OVF_vect)
  * Purpose:  Display tens and units of a counter at SSD.
  **********************************************************************/
 ISR(TIMER0_OVF_vect)
-{
-    static uint8_t pos = 0;
+{ 
+    static uint8_t position = 0;
+    
+    if (position == 0)
+    { 
+      SEG_update_shift_regs(DIG1,0);
+    } 
+    else
+    { 
+      SEG_update_shift_regs(DIG2,1); 
+    }
 
-    static int pow10[5] = { 1, 10, 100, 1000, 10000 };
-    
-    
-    uint16_t loc_val = (val % pow10[pos+1]) / (pow10[pos]);
-    
-    SEG_update_shift_regs(loc_val, pos);
-    
-    pos++;
-    if (pos == 4) pos = 0; 
-
+    position++; 
+    if (position > 1) position = 0; 
 }
 ```
 

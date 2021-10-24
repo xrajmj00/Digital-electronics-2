@@ -34,7 +34,7 @@ ISR(TIMER0_OVF_vect)
 {
     static uint8_t pos = 0;
 
-   static int pow10[5] = { 1, 10, 100, 1000, 10000 };
+    static int pow10[5] = { 1, 10, 100, 1000, 10000 };
     
     
     uint16_t loc_val = (val % pow10[pos+1]) / (pow10[pos]);

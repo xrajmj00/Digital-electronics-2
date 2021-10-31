@@ -7,7 +7,7 @@ Link to your `Digital-electronics-2` GitHub repository:
 
 ### LCD display module
 
-1. In your words, describe what ASCII table is.
+1. ASCII is a char assigning numbers to characters. 
     | **Char** | **Decimal** | **Hexadecimal** |
    | :-: | :-: | :-: |
    | `A` | 65 | 0x41 |

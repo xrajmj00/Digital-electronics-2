@@ -103,7 +103,7 @@ uint8_t cap_j_bolt[8] = {
 	0b10001
 };
 
-uint8_t cap_r_thin[8] = {
+uint8_t cap_r_normal[8] = {
 	0b00011,
 	0b01101,
 	0b01101,

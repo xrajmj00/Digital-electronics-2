@@ -22,6 +22,8 @@
 #include "gpio.h"           // GPIO library for AVR-GCC
 #include "timer.h"          // Timer library for AVR-GCC
 
+volatile uint8_t del = -1;
+
 /* Function definitions ----------------------------------------------*/
 /**********************************************************************
  * Function: Main function where the program execution begins
@@ -34,6 +36,12 @@ int main(void)
     // Configuration of LED(s) at port B
     GPIO_config_output(&DDRB, LED_D1);
     GPIO_write_low(&PORTB, LED_D1);
+    GPIO_config_output(&DDRB, LED_D2);
+    GPIO_write_high(&PORTB, LED_D2);
+    GPIO_config_output(&DDRB, LED_D3);
+    GPIO_write_high(&PORTB, LED_D3);
+    GPIO_config_output(&DDRB, LED_D4);
+    GPIO_write_high(&PORTB, LED_D4);
 
     // Configuration of 16-bit Timer/Counter1 for LED blinking
     // Set the overflow prescaler to 262 ms and enable interrupt
@@ -64,7 +72,69 @@ ISR(TIMER1_OVF_vect)
 {
 
     // WRITE YOUR CODE HERE
+    //GPIO_toggle(&PORTB, LED_D1); 
+    uint8_t token= 1; // changes values +1 and -1
+    del += 1 * token;
     GPIO_toggle(&PORTB, LED_D1);
-    
-
+    if(del == 1)
+    {
+        GPIO_write_low(&PORTB, LED_D1);
+        GPIO_write_high(&PORTB, LED_D2);
+        GPIO_write_high(&PORTB, LED_D3);
+        GPIO_write_high(&PORTB, LED_D4);
+        token *= -1;
+    }
+    if(del == 2)
+    {
+        GPIO_write_high(&PORTB, LED_D1);
+        GPIO_write_low(&PORTB, LED_D2);
+        GPIO_write_high(&PORTB, LED_D3);
+        GPIO_write_high(&PORTB, LED_D4);
+    }
+    if(del == 3)
+    {
+        GPIO_write_low(&PORTB, LED_D1);
+        GPIO_write_high(&PORTB, LED_D2);
+        GPIO_write_high(&PORTB, LED_D3);
+        GPIO_write_high(&PORTB, LED_D4);
+    }
+    if(del == 4)
+    {
+        GPIO_write_low(&PORTB, LED_D1);
+        GPIO_write_high(&PORTB, LED_D2);
+        GPIO_write_high(&PORTB, LED_D3);
+        GPIO_write_high(&PORTB, LED_D4);
+        token *= -1;
+    }
+    /*
+    switch(del)
+    {
+        case 1:
+            GPIO_write_high(&PORTB, LED_D1);
+            GPIO_write_low(&PORTB, LED_D2);
+            GPIO_write_low(&PORTB, LED_D3);
+            GPIO_write_low(&PORTB, LED_D4);
+            token *= -1;
+            
+        case 2:
+            GPIO_write_low(&PORTB, LED_D1);
+            GPIO_write_high(&PORTB, LED_D2);
+            GPIO_write_low(&PORTB, LED_D3);
+            GPIO_write_low(&PORTB, LED_D4);
+            
+        case 3:
+            GPIO_write_low(&PORTB, LED_D1);
+            GPIO_write_low(&PORTB, LED_D2);
+            GPIO_write_high(&PORTB, LED_D3);
+            GPIO_write_low(&PORTB, LED_D4);
+           
+        case 4:
+            GPIO_write_low(&PORTB, LED_D1);
+            GPIO_write_low(&PORTB, LED_D2);
+            GPIO_write_low(&PORTB, LED_D3);
+            GPIO_write_high(&PORTB, LED_D4);
+            token *= -1;
+    }
+    */
 }
+

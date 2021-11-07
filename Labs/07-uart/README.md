@@ -2,7 +2,7 @@
 
 Link to this file in your GitHub repository:
 
-[https://github.com/your-github-account/repository-name/lab_name](https://github.com/...)
+[https://github.com/xrajmj00/Digital-electronics-2](https://github.com/xrajmj00/Digital-electronics-2)
 
 ### Analog-to-Digital Conversion
 
@@ -34,6 +34,57 @@ ISR(ADC_vect)
 
     // WRITE YOUR CODE HERE
 
+}/**********************************************************************
+ * Function: ADC complete interrupt
+ * Purpose:  Display value on LCD and send it to UART.
+ **********************************************************************/
+ISR(ADC_vect)
+{
+   uint16_t value = 0;
+   char lcd_string[4] = "0000";
+
+   value = ADC;                  // Copy ADC result to 16-bit variable
+   itoa(value, lcd_string, 10);  // Convert decimal value to string
+
+   uart_puts(lcd_string);        // Put string to ringbuffer
+   uart_puts("\n\r");
+
+   lcd_gotoxy(8, 0); lcd_puts("    ");       // Clear decimal position
+   lcd_gotoxy(8, 0); lcd_puts(lcd_string);   // Put ADC value in decimal
+   
+   itoa(value, lcd_string, 16);              // Convert hexadecimal value to string
+   
+   lcd_gotoxy(13,0); lcd_puts("    ");       // Clear hexadecimal position
+   lcd_gotoxy(13,0); lcd_puts(lcd_string);   // Put ADC value in hexadecimal
+   
+   lcd_gotoxy(8, 1); lcd_puts("      ");     // Clear button position
+   lcd_gotoxy(8, 1); 
+   
+   // Decide on a pressed button based on a ADC value
+   if (value > 1000)                             
+   {
+      lcd_puts("none");
+   }
+   else if (value > 600)
+   {
+      lcd_puts("select");
+   }
+   else if (value > 300)
+   {
+      lcd_puts("left");
+   }
+   else if (value > 200)
+   {
+      lcd_puts("down");
+   }
+   else if (value > 90)
+   {
+      lcd_puts("up");
+   }
+   else if (value >= 0)
+   {
+      lcd_puts("right");
+   }
 }
 ```
 

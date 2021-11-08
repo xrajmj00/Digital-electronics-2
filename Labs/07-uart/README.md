@@ -92,7 +92,7 @@ ISR(ADC_vect)
 
 1. (Hand-drawn) picture of UART signal when transmitting three character data `De2` in 4800 7O2 mode (7 data bits, odd parity, 2 stop bits, 4800&nbsp;Bd).
 
-***      >>>Faulty value of period, correct value is 0,208ms = 208us!<<<***
+***> > > Faulty value of period, correct value is 0,208ms = 208us! < < <***
 
    ![your figure](de2_7_1.jpg)
 

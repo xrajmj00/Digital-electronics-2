@@ -14,7 +14,7 @@ Link to this file in your GitHub repository:
    * SPI pins (brown)
    * external interrupt pins INT0, INT1 (black)
 
-   ![your figure](de2_8_3.png)
+   ![your figure](de2_8_2.png)
 
 ### I2C
 

@@ -2,7 +2,10 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+<<<<<<< HEAD
 gpio.c
 
+=======
+>>>>>>> 05b9149fb85447b8eb1ca07074071a01eca072e6
 main.c
 

@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-/*/*
+/*
  * motor_v2.c
  *
  * Created: 03.12.2021 19:19:02
@@ -7,46 +6,42 @@
  */ 
 
 #include <avr/io.h>
-#include "gpio.h"
-
-#define F_CPU 16000000
+#include <gpio.h>
+#include <util/delay.h> 
 
 void delay_minutes(uint8_t minutes)
 {
 	for(minutes; minutes > 0; minutes--)
 	{
-        for(int k = 60; k > 0; k--)
-        {
-		    for(int i = 4000; i > 0; i--)     //
-		    {                                 // second
-			    for(int j = 4000; j > 0; j--) //
-			    {
-				    asm("nop");
-			    }
-		    }
-        }            
+		for(int i = 4000; i > 0; i--)
+		{
+			for(int j = 4000; j > 0; j--)
+			{
+				asm("nop")
+			}
+		}
 	}
 }
 
 int main(void)
 {
-	GPIO_config_output(&DDRD, 2); //
-	GPIO_config_output(&DDRD, 3); // outputs, pump control
+	GPIO_config_output(DDRD, 2); //
+	GPIO_config_output(DDRD, 3); // outputs, pump control
 	
-	typedef enum // states of FSM, defines four possible actions the pump can perform
+	typedef enum state // states of FSM, defines four possible actions the pump can perform
 	{
 		PUMP_IN,
 		PUMP_OUT,
-		PUMP_OFF, 
+		PUMP_OFF, // pøidat ještì stav READ_VALUES? je to teï kde èíst? v rámci DECIDEu?
 		DECIDE
-	}state;
+	};
 	state current_state = DECIDE;   // default state 
 	
-	typedef enum // used when working with yes/no statements
+	typedef enum logic // used when working with yes/no statements
 	{
 		TRUE,
 		FALSE	
-	}logic;
+	};
 	
 	// Declaration of variables
 	uint8_t level;	    // level of water
@@ -79,62 +74,44 @@ int main(void)
 				
 				if(level <= LEVEL_MIN)
 				{
-					if((level >= LEVEL_MIN_RAIN) & (raining == TRUE))
+					if(level >= LEVEL_MIN_RAIN & raining = TRUE)
 					{
-						current_state = PUMP_OFF;
+						state = PUMP_OFF;
 					}
 				}
 				
 			case PUMP_IN:
-				GPIO_write_low(&PORTD, 2);
-				GPIO_write_low(&PORTD, 3);
+				GPIO_write_low(DDRD, 2);
+				GPIO_write_low(DDRD, 3);
 				delay_minutes(1);
 				if(level <= LEVEL_MIN)
 				{
-					current_state = PUMP_IN;
+					state = PUMP_IN
 				}
 				else
 				{
-					current_state = PUMP_OFF;
+					state = PUMP_OFF
 				}
 				
 			case PUMP_OUT:
-				GPIO_write_high(&PORTD, 2);
-				GPIO_write_high(&PORTD, 3);
+				GPIO_write_high(DDRD, 2);
+				GPIO_write_high(DDRD, 3);
 				delay_minutes(1);
 				if(level > LEVEL_MAX)
 				{
-					current_state = PUMP_OUT;
+					state = PUMP_OUT
 				}
 				else
 				{
-					current_state = PUMP_OFF;
+					state = PUMP_OFF
 				}
 				
 			case PUMP_OFF:
-				GPIO_write_high(&PORTD, 2);
-				GPIO_write_low(&PORTD, 3);
+				GPIO_write_high(DDRD, 2);
+				GPIO_write_low(DDRD, 3);
 				delay_minutes(delay_val);
-				current_state = DECIDE;
+				state = DECIDE;
 		}
     }
 }
-=======
-#include <avr/io.h>
 
-
-int main(void)
-{
-    typedef enum pump_action // defines three posible action the pump can perform
-    {
-	    PUMP_IN,
-	    PUMP_OUT,
-	    PUMP_OFF
-    };
-	
-    while (1) 
-    {
-    }
-}
-
->>>>>>> 05b9149fb85447b8eb1ca07074071a01eca072e6

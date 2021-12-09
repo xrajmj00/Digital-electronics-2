@@ -3,6 +3,7 @@ main.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
+<<<<<<< HEAD
   0 .data         00000000  00800100  00800100  000001ba  2**0
                   CONTENTS, ALLOC, LOAD, DATA
   1 .text         00000166  00000000  00000000  00000054  2**1
@@ -26,6 +27,29 @@ Idx Name          Size      VMA       LMA       File off  Algn
  10 .debug_loc    000001d8  00000000  00000000  00001d69  2**0
                   CONTENTS, READONLY, DEBUGGING
  11 .debug_ranges 00000070  00000000  00000000  00001f41  2**0
+=======
+  0 .data         00000000  00800100  00800100  000000da  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         00000086  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      00000030  00000000  00000000  000000da  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  0000010c  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000020  00000000  00000000  0000014c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000671  00000000  00000000  0000016c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000005eb  00000000  00000000  000007dd  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   0000016b  00000000  00000000  00000dc8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000024  00000000  00000000  00000f34  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000386  00000000  00000000  00000f58  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_ranges 00000010  00000000  00000000  000012de  2**0
+>>>>>>> 05b9149fb85447b8eb1ca07074071a01eca072e6
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -65,12 +89,18 @@ Disassembly of section .text:
   6e:	d8 e0       	ldi	r29, 0x08	; 8
   70:	de bf       	out	0x3e, r29	; 62
   72:	cd bf       	out	0x3d, r28	; 61
+<<<<<<< HEAD
   74:	0e 94 7e 00 	call	0xfc	; 0xfc <main>
   78:	0c 94 b1 00 	jmp	0x162	; 0x162 <_exit>
+=======
+  74:	0e 94 40 00 	call	0x80	; 0x80 <main>
+  78:	0c 94 41 00 	jmp	0x82	; 0x82 <_exit>
+>>>>>>> 05b9149fb85447b8eb1ca07074071a01eca072e6
 
 0000007c <__bad_interrupt>:
   7c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
+<<<<<<< HEAD
 00000080 <GPIO_config_output>:
  **********************************************************************/
 void GPIO_config_input_pullup(volatile uint8_t *reg_name, uint8_t pin_num)
@@ -284,3 +314,18 @@ int main(void)
 
 00000164 <__stop_program>:
  164:	ff cf       	rjmp	.-2      	; 0x164 <__stop_program>
+=======
+00000080 <main>:
+#include <avr/io.h>
+
+
+int main(void)
+{
+  80:	ff cf       	rjmp	.-2      	; 0x80 <main>
+
+00000082 <_exit>:
+  82:	f8 94       	cli
+
+00000084 <__stop_program>:
+  84:	ff cf       	rjmp	.-2      	; 0x84 <__stop_program>
+>>>>>>> 05b9149fb85447b8eb1ca07074071a01eca072e6

@@ -6,7 +6,8 @@
  */ 
 
 #include <avr/io.h>
-
+#include <util/delay.h>
+//#define F_CPU 16000000
 
 int main(void)
 {
@@ -16,15 +17,19 @@ int main(void)
     while (1) 
     {
         /*
-        PORTD |= (1<<2); // vypnuto
-        PORTD &= ~(1<<3);//  
-        */
-        /*
         PORTD &= ~(1<<2); 
         PORTD &= ~(1<<3);
-        */
+        
+       _delay_ms(1000);
+        
+        PORTD |= (1<<2); // vypnuto
+        PORTD &= ~(1<<3);//      
+               
+        _delay_ms(1000);
+        
         PORTD |= (1<<2); // INT1
         PORTD |= (1<<3); // INT2
+        */
     }
 }
 

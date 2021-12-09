@@ -35,7 +35,7 @@ int main(void)
 		PUMP_OFF, // pøidat ještì stav READ_VALUES? je to teï kde èíst? v rámci DECIDEu?
 		DECIDE
 	};
-	state = DECIDE;   // default state 
+	state current_state = DECIDE;   // default state 
 	
 	typedef enum logic // used when working with yes/no statements
 	{
@@ -58,7 +58,7 @@ int main(void)
 	
     while (1) 
     {
-		switch(state)
+		switch(current_state)
 		{
 			case DECIDE:
 				if(humidity > HUMIDITY_TH)

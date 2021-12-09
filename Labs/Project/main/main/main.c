@@ -38,6 +38,7 @@ int main(void)
 		PUMP_IN,
 		PUMP_OUT,
 		PUMP_OFF, 
+		STANDBY,   // to improve clarity of FSM
 		DECIDE
 	}state;
 	state current_state = DECIDE;   // default state 
@@ -114,6 +115,8 @@ int main(void)
 			case PUMP_OFF:
 				GPIO_write_high(&PORTD, 2);
 				GPIO_write_low(&PORTD, 3);
+				current_state = STANDBY;
+			case STANDBY:
 				delay_minutes(delay_val);
 				current_state = DECIDE;
 		}

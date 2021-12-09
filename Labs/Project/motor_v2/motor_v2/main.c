@@ -32,7 +32,7 @@ int main(void)
 	{
 		PUMP_IN,
 		PUMP_OUT,
-		PUMP_OFF, // p¯idat jeötÏ stav READ_VALUES? je to teÔ kde ËÌst? v r·mci DECIDEu?
+		PUMP_OFF, // p√∏idat je≈°t√¨ stav READ_VALUES? je to te√Ø kde √®√≠st? v r√°mci DECIDEu?
 		DECIDE
 	};
 	state = DECIDE;   // default state 
@@ -44,7 +44,7 @@ int main(void)
 	};
 	
 	// Declaration of variables
-	uint8_t level;		// level of water
+	uint8_t level;	    // level of water
 	uint8_t humidity;   // value of humidity
 	uint8_t delay_val;  // value of delay in minutes
 	logic raining;

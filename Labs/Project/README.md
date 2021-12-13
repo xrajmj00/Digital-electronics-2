@@ -2,9 +2,9 @@
 
 ### Team members
 
-* Jan Rajm (responsible for xxx)
-* Tomáš Rotrekl (responsible for xxx)
-* Martin Šomšák (responsible for xxx)
+* Jan Rajm (flowchart, návrh FSM, programování)
+* Tomáš Rotrekl (senzor vzdálenosti, programování)
+* Martin Šomšák (zpracování)
 
 
 Link to this file in your GitHub repository:

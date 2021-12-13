@@ -24,13 +24,13 @@ Link to this file in your GitHub repository:
 
 ## Project objectives
 
-Write your text here.
+Cílem bylo sestrojit chytrou vodní pumpu, která bude schopná udržovat výšku hladiny v požadovaných mezích. Předpokládalo se, že tato chytrá pumpa bude sloužit u lokálního zdroje vody, tzn. že je k dispozici hlavní zdroj vody, ze kterého by bylo možné dočerpávat vodu (např. vodovodní řád).
 
 <a name="hardware"></a>
 
 ## Hardware description
 
-Write your text here.
+
 
 <a name="libs"></a>
 

@@ -2,7 +2,7 @@
  * Humidity.c
  * Sensor of humidity
  * Used in water tank controller
- * Author : Tom� Rotrekl, Jan Rajm
+ * Author : Tomáš Rotrekl, Jan Rajm
  */ 
 
 #include <avr/io.h>
@@ -33,15 +33,15 @@ int main(void)
 	{
 		twi_start((addr<<1) + TWI_WRITE);	// start I2C comunication with sensor
 		
-		twi_write(0);						// state request of data from register 0
+		twi_write(0);				// state request of data from register 0
 		
 		twi_start((addr<<1) + TWI_READ);	// request data from sensor
 		
 		uart_puts("\r\nHumidity:\r\n");		// write to uart
-		result=twi_read_nack();				// write register data to var. result
+		result=twi_read_nack();			// write register data to var. result
 		itoa(result,uart_string,10);		// convert result to string
-		uart_puts(uart_string);				// write string to uart
+		uart_puts(uart_string);			// write string to uart
 	
-		twi_stop();							// stop I2C communication with sensor
+		twi_stop();				// stop I2C communication with sensor
 	}
 }

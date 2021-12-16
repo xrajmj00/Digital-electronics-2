@@ -82,111 +82,111 @@ int main(void)
     {   
 	switch(current_state) // FSM 
 		{
-			case DECIDE: 
+		case DECIDE: 
 				
-				// measurement of humidity													    ////
-				result = twi_start((address_humidity<<1) + TWI_WRITE);//start I2C communication //// 
-                if(result == 0)                                                                 ////
-                {                                                                               ////
-				    twi_write(0);//	state request of data from register 0		                //// 
-				    twi_start((address_humidity<<1) + TWI_READ);//request data from sensor      //// 
-                    humidity=twi_read_nack();	// write register data to var. result	        //// 
-                    uart_puts("\r\nHumidity:\r\n"); // write to uart                            ////
-                    itoa(humidity,uart_string_humidity,10);	//convert result to string          ////
-                    uart_puts(uart_string_humidity); //write string to uart                     ////
-                }                                                                               ////
-                else                                                                            ////
-                {                                                                               ////
-                    uart_puts("No device! \r\n");                                               ////
-                }                                                                               ////
-                    twi_stop();	//stop I2C communication with sensor                            //// 
-				////////////////////////////////////////////////////////////////////////////////////
-				
-				if(humidity > HUMIDITY_TH) 
-				{
-					raining = TRUE;
-					delay_val = 1000; // 1000 ms (1s) waiting, after that state changes back to DECIDE  //
-				}
-				else
-				{
-					raining = FALSE;
-					delay_val = 5000; // the same but waiting for 5s 
-				}
-				
-				//////////////////////////////////////////////////////////////////////////// 
-				// measurement of water level, beginning                				////
-				// it would be hard to make a function because of the interrupt         ////
-				GPIO_write_high(&PORTB, TRIGGER);										////
-				_delay_us(10);															////
-				GPIO_write_low(&PORTB, TRIGGER);										////
-																						////
-				TCNT1 = 0;				// Clear Timer counter   						////
-																						////
-				TCCR1B = 1<<ICES1;														////
-				TIFR1 = 1<<ICF1;	// Clear ICP flag (Input Capture flag)  			////
-				TIFR1 = 1<<TOV1;	// Clear Timer Overflow flag 						////
-																						////
-				//Calculate width of Echo by Input Capture (ICP)    					////
-																						////
-				while ((TIFR1 & (1 << ICF1)) == 0);// Wait for rising edge  			////
-				TCNT1 = 0;			// Clear Timer counter   							////
-				TCCR1B = 0x01;		// Capture on falling edge, No prescaler 			////															
-				TIFR1 = 1<<ICF1;	// Clear ICP flag (Input Capture flag)  			////
-				TIFR1 = 1<<TOV1;	// Clear Timer Overflow flag 						////
-				TimerOverflow = 0;// Clear Timer overflow count 						////
-																						////
-				while ((TIFR1 & (1 << ICF1)) == 0);// Wait for falling edge 			////
-				count = ICR1 + (65535 * TimerOverflow);	// Take count   				////
-				// 8MHz Timer freq, sound speed =343 m/s 								////
-				level = (double)count / 466.47;											////
-                																		////
-				_delay_ms(200);             											////								
-				////////////////////////////////////////////////////////////////////////////
-				
-				if((WATER_TANK_HEIGH - level) < LEVEL_MIN) 
-				{
-					if(((WATER_TANK_HEIGH - level) < LEVEL_MIN) & (raining == TRUE)) 
-					{
-						current_state = PUMP_OFF;
-					}
-					else
-					{
-						current_state = PUMP_IN; 
-					}
-				}
-				
-				if((WATER_TANK_HEIGH - level) > LEVEL_MAX) 
-				{
-					current_state = PUMP_OUT;
-				}
-				else // the water level is not too low neither too high 
+			// measurement of humidity /////////////////////////////////////////////////////////
+			result = twi_start((address_humidity<<1) + TWI_WRITE);//start I2C communication //// 
+                	if(result == 0)                                                                 ////
+	                {                                                                               ////
+				twi_write(0);//	state request of data from register 0		        //// 
+				twi_start((address_humidity<<1) + TWI_READ);//request data from sensor  //// 
+                		humidity=twi_read_nack();	// write register data to var. result	//// 
+                    		uart_puts("\r\nHumidity:\r\n"); // write to uart                        ////
+                    		itoa(humidity,uart_string_humidity,10);	//convert result to string      ////
+                    		uart_puts(uart_string_humidity); //write string to uart                 ////
+                	}                                                                               ////
+                	else                                                                            ////
+                	{                                                                               ////
+                    		uart_puts("No device! \r\n");                                           ////
+                	}                                                                               ////
+                    		twi_stop();	//stop I2C communication with sensor                    //// 
+			////////////////////////////////////////////////////////////////////////////////////
+					
+			if(humidity > HUMIDITY_TH) 
+			{
+				raining = TRUE;
+				delay_val = 1000; // 1000 ms (1s) waiting, after that state changes back to DECIDE  //
+			}
+			else
+			{
+				raining = FALSE;
+				delay_val = 5000; // the same but waiting for 5s 
+			}
+			
+			//////////////////////////////////////////////////////////////////////////// 
+			// measurement of water level, beginning                		////
+			// it would be hard to make a function because of the interrupt         ////
+			GPIO_write_high(&PORTB, TRIGGER);					////
+			_delay_us(10);								////
+			GPIO_write_low(&PORTB, TRIGGER);					////
+												////
+			TCNT1 = 0;				// Clear Timer counter   	////
+												////
+			TCCR1B = 1<<ICES1;							////
+			TIFR1 = 1<<ICF1;	// Clear ICP flag (Input Capture flag)  	////
+			TIFR1 = 1<<TOV1;	// Clear Timer Overflow flag 			////
+												////
+			//Calculate width of Echo by Input Capture (ICP)    			////
+												////
+			while ((TIFR1 & (1 << ICF1)) == 0);// Wait for rising edge  		////
+			TCNT1 = 0;			// Clear Timer counter   		////
+			TCCR1B = 0x01;		// Capture on falling edge, No prescaler 	////															
+			TIFR1 = 1<<ICF1;	// Clear ICP flag (Input Capture flag)  	////
+			TIFR1 = 1<<TOV1;	// Clear Timer Overflow flag 			////
+			TimerOverflow = 0;// Clear Timer overflow count 			////
+												////
+			while ((TIFR1 & (1 << ICF1)) == 0);// Wait for falling edge 		////
+			count = ICR1 + (65535 * TimerOverflow);	// Take count   		////
+			// 8MHz Timer freq, sound speed =343 m/s 				////
+			level = (double)count / 466.47;						////
+												////
+			_delay_ms(200);             						////								
+			////////////////////////////////////////////////////////////////////////////
+
+			if((WATER_TANK_HEIGH - level) < LEVEL_MIN) 
+			{
+				if(((WATER_TANK_HEIGH - level) < LEVEL_MIN) & (raining == TRUE)) 
 				{
 					current_state = PUMP_OFF;
 				}
-				
-			case PUMP_IN: 
-				GPIO_write_low(&PORTD, PUMP_PIN_1);
-				GPIO_write_low(&PORTD, PUMP_PIN_2);
-				_delay_ms(1000);
-				current_state = DECIDE;
-				
-			case PUMP_OUT: 
-				GPIO_write_high(&PORTD, PUMP_PIN_1);
-				GPIO_write_high(&PORTD, PUMP_PIN_2);
-				_delay_ms(1000);
-				current_state = DECIDE;
-				
-			case PUMP_OFF:
-				GPIO_write_high(&PORTD, PUMP_PIN_1);
-				GPIO_write_low(&PORTD, PUMP_PIN_2);
-				_delay_ms(delay_val);
-				current_state = DECIDE;
-            default: 
-                current_state = DECIDE;
-			break;
+				else
+				{
+					current_state = PUMP_IN; 
+				}
+			}
+		
+			if((WATER_TANK_HEIGH - level) > LEVEL_MAX) 
+			{
+				current_state = PUMP_OUT;
+			}
+			else // the water level is not too low neither too high 
+			{
+				current_state = PUMP_OFF;
+			}
+
+		case PUMP_IN: 
+			GPIO_write_low(&PORTD, PUMP_PIN_1);
+			GPIO_write_low(&PORTD, PUMP_PIN_2);
+			_delay_ms(1000);
+			current_state = DECIDE;
+
+		case PUMP_OUT: 
+			GPIO_write_high(&PORTD, PUMP_PIN_1);
+			GPIO_write_high(&PORTD, PUMP_PIN_2);
+			_delay_ms(1000);
+			current_state = DECIDE;
+
+		case PUMP_OFF:
+			GPIO_write_high(&PORTD, PUMP_PIN_1);
+			GPIO_write_low(&PORTD, PUMP_PIN_2);
+			_delay_ms(delay_val);
+			current_state = DECIDE;
+		default: 
+			current_state = DECIDE;
+		break;
 		}
-    }	
-}
+	    }	
+	}
 
 
 ISR(TIMER1_OVF_vect) 

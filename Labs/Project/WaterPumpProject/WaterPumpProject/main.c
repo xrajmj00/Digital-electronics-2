@@ -1,9 +1,9 @@
 /*/*
  * Digital electronics 2 project
  * Water tank controller
- * Author : Jan Rajm, Tomáš Rotrekl
+ * Author : Jan Rajm, TomÃ¡Å¡ Rotrekl
  */ 
-/////////////////////////////////////////////////////////// zahrnutí potøebnıch souèástí, je zbyteènı øíkat konkrétnì, co která dìlá, 
+
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <stdlib.h>
@@ -20,7 +20,7 @@
 #endif
 
 #include <util/delay.h>
-////////////////////////////////////////////////////// definice pinù a konstant, takhle je to vıhodnı proto, e pøi zpracování budou tyhle #define nahrazeny èíslem, take to nezabere místo na AVR
+
 #define PUMP_PIN_1 2
 #define PUMP_PIN_2 3
 #define TRIGGER PB5
@@ -33,7 +33,7 @@
 #define LEVEL_MIN_RAIN  30      // if water level is above this level and it is raining, pump will turn off, for testing purposes in cm
 #define HUMIDITY_TH 80          // if humidity is above this level, it will probably rain
 
-typedef enum // states of FSM, defines four possible actions the pump can perform ///////////////////////// definice stavového automatu
+typedef enum // states of FSM, defines four possible actions the pump can perform 
 {
     PUMP_IN,
     PUMP_OUT,
@@ -47,11 +47,10 @@ typedef enum // used when working with yes/no statement
     FALSE
 }logic;
 
-volatile int TimerOverflow = 0; // global variable, used both in main() and in interrupt /////////// globální promìnná je nezbytná, protoe ji potøebujeme vyuít jak ve funkce main(), tak i uvnitø pøerušení
-
+volatile int TimerOverflow = 0; // global variable, used both in main() and in interrupt 
 
 int main(void)
-{   //////////////////////////////////////////////////////////// definice promìnnıch, zas není potøeba vysvìtlovat kadou zvláš
+{   
     // Declaration of variables
     float level;	    // actual level of water
     uint8_t humidity = 0;   // actual value of humidity
@@ -60,32 +59,31 @@ int main(void)
     long count;
     static uint8_t address_humidity = 0x5c;
     char uart_string_humidity[] = "00";
-    state current_state = DECIDE;   // default state ////////////////////////////////////////////////////// v FSM je jako vıhozí stav nastaven DECIDE proto, e je v nìm soustøedìné veškeré rozhodování, ostatní stavy jen vykonávají akce 
+    state current_state = DECIDE;   // default state 
     uint8_t result;
     
-    //////////////////////////////////////////////////////////////////////// konfigurace pinù ovládájící relé (nahoøe) a ultrazvukovı senzor (dole)
-	GPIO_config_output(&DDRD, PUMP_PIN_1); //
-	GPIO_config_output(&DDRD, PUMP_PIN_2); // outputs, pump control
+    
+    GPIO_config_output(&DDRD, PUMP_PIN_1); //
+    GPIO_config_output(&DDRD, PUMP_PIN_2); // outputs, pump control
 
-	GPIO_config_output(&DDRB, TRIGGER);   //
-	GPIO_config_input_pullup(&DDRD,ECHO); // pins used by ultrasound level sensor
+    GPIO_config_output(&DDRB, TRIGGER);   //
+    GPIO_config_input_pullup(&DDRD,ECHO); // pins used by ultrasound level sensor
 	
-	twi_init();
-	uart_init(UART_BAUD_SELECT(9600, F_CPU)); // Initialize UART to asynchronous, 8N1, 9600 ///////////////// nastavení uart, nic extra
+    twi_init();
+    uart_init(UART_BAUD_SELECT(9600, F_CPU)); // Initialize UART to asynchronous, 8N1, 9600 
 
-    TIM1_overflow_4ms(); // Capture on rising edge, No prescaler //////////////////////////////////////nastavení pøerušení a umonìní (ta funkce sei() ), taky nic extra
-	TIM1_overflow_interrupt_enable(); //Enable overflow interrupt
+    TIM1_overflow_4ms(); // Capture on rising edge, No prescaler 
+    TIM1_overflow_interrupt_enable(); //Enable overflow interrupt
 	
     sei();
 	
 	
     while (1) 
     {   
-	switch(current_state) // FSM //////////////////////////////////////////////////////////////////////// zaèátek FSM, v jeho jednotlivıch stavech jsou provádìny pøíslušné akce
+	switch(current_state) // FSM 
 		{
-			case DECIDE: //////////////////////////////////////////////////////////////////////////////// vıchozí stav, je v nìm veškeré rozhodování a tak ètení ze senzorù vlhkosti a ultrazvukového senzoru, urèeného ke snímání vıšky hladiny 
-			
-				//////////////////////////////////////////////////////////////////////////////////// ////////////////////////////////// komunikace se senzorem vlhkosti, ètení hodnoty vlhkosti, je to orámovanı proto, aby bylo jasnı, e to všechno patøí k sobì (take snad vìtší pøehlednost kódu?), klidnì øekni, e to napadlo mì
+			case DECIDE: 
+				
 				// measurement of humidity													    ////
 				result = twi_start((address_humidity<<1) + TWI_WRITE);//start I2C communication //// 
                 if(result == 0)                                                                 ////
@@ -104,18 +102,18 @@ int main(void)
                     twi_stop();	//stop I2C communication with sensor                            //// 
 				////////////////////////////////////////////////////////////////////////////////////
 				
-				if(humidity > HUMIDITY_TH) ///////////////////////////////////////////////////////////////// porovnává se, jestli souèasná vlhkost pøesahuje prahovou úroveò vlhkosti, pokud ano, tak to znamená e prší
+				if(humidity > HUMIDITY_TH) 
 				{
 					raining = TRUE;
-					delay_val = 1000; // 1000 ms (1s) waiting, after that state changes back to DECIDE  //// kdy prší, tak to nastaví kratší èekací konstantu, tedy jednu sekundu. V reálu by èekací konstanta nebyla øádovì v sekundách, ale v minutách nebo hodinách. Pøi dešti je èekací konstanta kratší, aby se rychleji kontroloval stav a nedošlo k pøeteèení nádre. Projeví se ve stavu PUMP_OFF
+					delay_val = 1000; // 1000 ms (1s) waiting, after that state changes back to DECIDE  //
 				}
 				else
 				{
 					raining = FALSE;
-					delay_val = 5000; // the same but waiting for 5s /////////////////////////////////////// pokud neprší, tak je není nutné tak èasto kontrolovat stav
+					delay_val = 5000; // the same but waiting for 5s 
 				}
 				
-				//////////////////////////////////////////////////////////////////////////// ////////////////// mìøení hladiny ultrazvukovım senzorem. tuhle èást nešlo dát zvláš do funkce, protoe potøebuje pøerušení. Tuhle èást se nám nepovedlo plnì implementovat, dokázali jsme èíst vzdálenost pouze samostatnì (viz video z labek).
+				//////////////////////////////////////////////////////////////////////////// 
 				// measurement of water level, beginning                				////
 				// it would be hard to make a function because of the interrupt         ////
 				GPIO_write_high(&PORTB, TRIGGER);										////
@@ -145,44 +143,44 @@ int main(void)
 				_delay_ms(200);             											////								
 				////////////////////////////////////////////////////////////////////////////
 				
-				if((WATER_TANK_HEIGH - level) < LEVEL_MIN) ////////////////////////////////////////////////////// tady se rozhoduje o pøechodu do následujících stavù na základì vıšky hladiny, kdy je vody moc, tak se odpumpuje, kdy moc málo, tak se dopumpuje, vzdálenost vodní hladiny od ultrazvukového senzoru se zde pøevádí na vıšku hladiny (lepší pøedstavivost, praktiètìjší), stejnì se to dìlá i jinde
+				if((WATER_TANK_HEIGH - level) < LEVEL_MIN) 
 				{
-					if(((WATER_TANK_HEIGH - level) < LEVEL_MIN) & (raining == TRUE)) /////////////////////// vyuití informace o dešti: pokud prší a vody je málo (pod úrovní LEVEL_MIN), ale ne zas tak málo (nad úrovní LEVEL_MIN_RAIN), tak se pumpa nespustí a paèká se, a voda pøiprší
+					if(((WATER_TANK_HEIGH - level) < LEVEL_MIN) & (raining == TRUE)) 
 					{
 						current_state = PUMP_OFF;
 					}
 					else
 					{
-						current_state = PUMP_IN; ///////////////////////////////////////////// pokud neprší, tak se voda pøipumpuje
+						current_state = PUMP_IN; 
 					}
 				}
 				
-				if((WATER_TANK_HEIGH - level) > LEVEL_MAX) /////////////////// kdy je vody moc, tak se odpumpuje
+				if((WATER_TANK_HEIGH - level) > LEVEL_MAX) 
 				{
 					current_state = PUMP_OUT;
 				}
-				else // the water level is not too low neither too high /////////////// kdy vody není ani moc ani moc málo, tak se pumpa vypne
+				else // the water level is not too low neither too high 
 				{
 					current_state = PUMP_OFF;
 				}
 				
-			case PUMP_IN: ///////////////////////////////////////// stav pro pumpování vody dovnitø, to èekání je tam proto, aby se zbyteènì nepøecházelo do stavu DECIDE, takhle èerpá vodu po celou dobu èekání, v reálu zase mùe bıt èekání delší
+			case PUMP_IN: 
 				GPIO_write_low(&PORTD, PUMP_PIN_1);
 				GPIO_write_low(&PORTD, PUMP_PIN_2);
 				_delay_ms(1000);
 				current_state = DECIDE;
 				
-			case PUMP_OUT: //////////////////////////////////////// stav pro odèerpání vody, podobnı jako u PUMP_IN
+			case PUMP_OUT: 
 				GPIO_write_high(&PORTD, PUMP_PIN_1);
 				GPIO_write_high(&PORTD, PUMP_PIN_2);
 				_delay_ms(1000);
 				current_state = DECIDE;
 				
-			case PUMP_OFF:////////////////////////////////////////// stav pro vypnutí èerpadla, tady se zase projevuje, jestli prší nebo ne a to u èekání, kdy se èeká podle doby zvolené v DECIDE
+			case PUMP_OFF:
 				GPIO_write_high(&PORTD, PUMP_PIN_1);
 				GPIO_write_low(&PORTD, PUMP_PIN_2);
 				_delay_ms(delay_val);
-				current_state = DECIDE;///////////////////////////////// po èekání nastane stav DECIDE, kde se opìt kontroluje, jestli prší a jaká je vıška hladiny
+				current_state = DECIDE;
             default: 
                 current_state = DECIDE;
 			break;
@@ -191,7 +189,7 @@ int main(void)
 }
 
 
-ISR(TIMER1_OVF_vect) /////////////////////////////////////////// pøerušení patøí k mìøení hladiny vody, inkrementovaná promìnná se pouívá pøi vıpoètu doby ozvìny a tím i vzdálenosti vodní hladiny od senzoru
+ISR(TIMER1_OVF_vect) 
 {
 	TimerOverflow++;	// Increment Timer Overflow count 
 }

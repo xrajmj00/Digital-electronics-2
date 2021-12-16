@@ -3,8 +3,8 @@
 ### Team members
 
 * Jan Rajm (flowchart, návrh FSM, programování)
-* [Tomáš Rotrekl](https://github.com/xrotre05/Digital-electronics-2/tree/main/Labs/Project)l (senzor vzdálenosti, programování)
-* Martin Šomšák (zpracování)
+* [Tomáš Rotrekl](https://github.com/xrotre05/Digital-electronics-2/tree/main/Labs/Project) (senzor vzdálenosti, programování)
+* [Martin Šomšák](https://github.com/MartinSomsak00/Digital-electronics-2/tree/main/Labs/projekt) (zpracování)
 
 
 Link to this file in your GitHub repository:

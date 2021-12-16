@@ -33,17 +33,17 @@ Cílem bylo sestrojit chytrou vodní pumpu, která bude schopná udržovat výš
 K měření hladiny vody byl použit ultrazvukový měřič vzdálenosti: [Ultrasonic HC-SR04 Module](https://www.electronicwings.com/avr-atmega/ultrasonic-module-hc-sr04-interfacing-with-atmega1632)
 Ultrazvukový modul HC-SR04 pracuje na principu systému SONAR a RADAR. Má ultrazvukový vysílač, přijímač a řídicí obvod. 4 piny, *Vcc, Gnd, Trig a Echo*. Přivedením pulsu na Trig (10us) vygeneruje 8 pulsu s frekvencí 40kHz a Echo pin se přepne do vysoké úrovně a zůstane tak dokud nedostane signál zpět. Podle času jak dlouho byl pin Echo v úrovni High se pak lehce spočítá pomocí rychlosti zvuku ve vzduchu vzdálenost objektu, v našem případě vodní hladiny.
 
-![](pictures/1.PNG)
+![](Pictures/1.PNG)
 
 Byla použita deska *Arduino Uno* s čipem [ATmega328P](https://www.microchip.com/en-us/product/ATmega328p)
 ![](pictures/2.PNG)
 
 K měření vlhkosti jsme použili [I2C teploměr a vlhkoměr DHT12 digitální](https://dratek.cz/martin/1977-i2c-teplomer-a-vlhkomer-dht12-digitalni.html)
 
-![](pictures/3.PNG)
+![](Pictures/3.PNG)
 
 Pro spínání motoru/pumpy (v našem případě LED diod) bylo použito [2-kanálové relé modul 5VDC 250VAC 10A](https://dratek.cz/arduino/834-arduino-rele-2-kanaly.html)
-![](pictures/4.PNG)
+![](Pictures/4.PNG)
 
 
 <a name="libs"></a>
@@ -66,11 +66,11 @@ Byly použity knihovny:
 
 Schema zapojení: 
 
-![](pictures/5.png)
+![](Pictures/5.png)
 
 návrh FSM: 
 
-![](pictures/6.PNG)
+![](Pictures/6.PNG)
 
 
 <a name="video"></a>

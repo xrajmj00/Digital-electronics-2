@@ -66,7 +66,7 @@ Byly použity knihovny:
 
 Schema zapojení: 
 
-![](pictures/5.png)
+![](pictures/5_1.png)
 
 Flowchart podle kterého probíhalo programovaní:
 

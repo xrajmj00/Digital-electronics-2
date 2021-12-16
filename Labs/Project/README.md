@@ -8,7 +8,8 @@
 
 
 Link to this file in your GitHub repository:
-[https://github.com/xrajmj00/Digital-electronics-2/tree/main/Labs/Project](https://github.com/xrajmj00/Digital-electronics-2/tree/main/Labs/Project)
+
+https://github.com/xrajmj00/Digital-electronics-2/tree/main/Labs/Project
 
 ### Table of contents
 
@@ -32,17 +33,17 @@ Cílem bylo sestrojit chytrou vodní pumpu, která bude schopná udržovat výš
 K měření hladiny vody byl použit ultrazvukový měřič vzdálenosti: [Ultrasonic HC-SR04 Module](https://www.electronicwings.com/avr-atmega/ultrasonic-module-hc-sr04-interfacing-with-atmega1632)
 Ultrazvukový modul HC-SR04 pracuje na principu systému SONAR a RADAR. Má ultrazvukový vysílač, přijímač a řídicí obvod. 4 piny, *Vcc, Gnd, Trig a Echo*. Přivedením pulsu na Trig (10us) vygeneruje 8 pulsu s frekvencí 40kHz a Echo pin se přepne do vysoké úrovně a zůstane tak dokud nedostane signál zpět. Podle času jak dlouho byl pin Echo v úrovni High se pak lehce spočítá pomocí rychlosti zvuku ve vzduchu vzdálenost objektu, v našem případě vodní hladiny.
 
-![1](pictures/1.png)
+![](pictures/1.PNG)
 
 Byla použita deska *Arduino Uno* s čipem [ATmega328P](https://www.microchip.com/en-us/product/ATmega328p)
-![2](pictures/2.png)
+![](pictures/2.PNG)
 
 K měření vlhkosti jsme použili [I2C teploměr a vlhkoměr DHT12 digitální](https://dratek.cz/martin/1977-i2c-teplomer-a-vlhkomer-dht12-digitalni.html)
 
-![3](pictures/3.png)
+![](pictures/3.PNG)
 
 Pro spínání motoru/pumpy (v našem případě LED diod) bylo použito [2-kanálové relé modul 5VDC 250VAC 10A](https://dratek.cz/arduino/834-arduino-rele-2-kanaly.html)
-![4](pictures/4.png)
+![](pictures/4.PNG)
 
 
 <a name="libs"></a>
@@ -65,11 +66,20 @@ Byly použity knihovny:
 
 Schema zapojení: 
 
-![5](pictures/5.png)
+![](pictures/5.png)
+
+Flowchart podle kterého probíhalo programovaní:
+
+![](pictures/8.PNG)
+
+Složitější flowchart, jak by mohl vypadat při rozšíření.
+
+![](pictures/7.PNG)
+
 
 návrh FSM: 
 
-![6](pictures/6.png)
+![](pictures/6.PNG)
 
 
 <a name="video"></a>

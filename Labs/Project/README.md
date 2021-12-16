@@ -8,8 +8,7 @@
 
 
 Link to this file in your GitHub repository:
-
-https://github.com/xrajmj00/Digital-electronics-2/tree/main/Labs/Project
+[https://github.com/xrajmj00/Digital-electronics-2/tree/main/Labs/Project](https://github.com/xrajmj00/Digital-electronics-2/tree/main/Labs/Project)
 
 ### Table of contents
 
